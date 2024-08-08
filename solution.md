@@ -15,7 +15,7 @@ SELECT type,date,description
 |--------|----------|----------------------------------------------------------------------------------------------------------------|
 | murder | 20180115 | Security footage shows that there were 2 witnesses. The first witness lives at the last house on "Northwestern Dr". The second witness, named Annabel, lives somewhere on "Franklin Ave". |
 
-## Finding witness 1:
+## Finding Witness 1:
 From the crime_scene_report says the first witness lives at the last house on 'Northwestern Dr', Based on that information, Identifying the first witness and obtain the transcript of their interview.
 
 ```SQL Query 
@@ -115,6 +115,23 @@ height Between '65' And '67'
 | 291182 | 65  | 66     | blue      | red        | female | 08CM64       | Tesla    | Model S   |
 | 918773 | 48  | 65     | black     | red        | female | 917UU3       | Tesla    | Model S   |
 
+## Cross-Referencing Person details
+Gathering additional details to continue the investigation.
+
+```SQL Query
+SELECT person.id,person.name,person.license_id
+FROM person
+join drivers_license
+on person.license_id=drivers_license.id
+where person.license_id in('918773','202298','291182')	
+```
+| ID   | Name            | License ID |
+|-------|-----------------|------------|
+| 99716 | Miranda Priestly | 202298     |
+| 90700 | Regina George    | 291182     |
+| 78881 | Red Korb         | 918773     |
+
+
 ## Collecting Extended Information on Suspects
  Identifying individuals who attended "SQL Symphony" exactly 3 times in December 2017, and includes their personal details and annual income.
 
@@ -147,3 +164,4 @@ SELECT value FROM solution;
 | Value                                                                                                                                                                           |
 |---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Congrats, you found the brains behind the murder! Everyone in SQL City hails you as the greatest SQL detective of all time. Time to break out the champagne! |
+
